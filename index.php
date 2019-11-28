@@ -1,19 +1,11 @@
 <?php
-
-require "config.php";
+require "./../../vendor/autoload.php";
 require "Userdetails.php";
-
-//Facebook Login Functions
-//$redirectURL = "http://".$_SERVER['SERVER_NAME']."/fb_callback.php";
-//$redirectURL = "http://localhost/UI_project/fb_callback.php";
-//$permissions = ['email'];
-//$login_Url = $helper->getLoginUrl($redirectURL, $permissions);
-
-require 'vendor/autoload.php';
+require "config.php";
 
 $helper = $FB->getRedirectLoginHelper();
-
 $permissions = ['email']; // optional
+
 try {
 
 if (isset($_SESSION['facebook_access_token'])) {
@@ -52,50 +44,12 @@ if (isset($_GET['code'])) {
 header('Location: hello.php');
 exit();
 }
-// getting basic info about user
-
-/*
-try {
-$profile_request = $FB->get('/me?fields=name,first_name,last_name,email');
-$requestPicture = $FB->get('/me/picture?redirect=false&height=200'); //getting user picture
-$picture = $requestPicture->getGraphUser();
-$profile = $profile_request->getGraphUser();
-$fbid = $profile->getProperty('id');           // To Get Facebook ID
-$fbfullname = $profile->getProperty('name');   // To Get Facebook full name
-$fbemail = $profile->getProperty('email');    //  To Get Facebook email
-$fbpic = "<img src='".$picture['url']."' class='img-rounded'/>";
-# save the user nformation in session variable
-$_SESSION['fb_id'] = $fbid.'</br>';
-$_SESSION['fb_name'] = $fbfullname.'</br>';
-$_SESSION['fb_email'] = $fbemail.'</br>';
-$_SESSION['fb_pic'] = $fbpic.'</br>';
-} catch(Facebook\Exceptions\FacebookResponseException $e) {
-// When Graph returns an error
-echo 'Graph returned an error: ' . $e->getMessage();
-session_destroy();
-// redirecting user back to app login page
-header("Location: test_fb.php");
-exit;
-} catch(Facebook\Exceptions\FacebookSDKException $e) {
-// When validation fails or other local issues
-echo 'Facebook SDK returned an error: ' . $e->getMessage();
-exit;
-}
-} else {
-// replace your website URL same as added in the developers.Facebook.com/apps e.g. if you used http instead of https and you used   
-*/ 
-}  
-      
+// Getting basic info about user      
 $fb_login_Url = $helper->getLoginUrl('http://localhost/UI_project/test_fb.php', $permissions);
 
-
-
-//Google Login Url
+	//Google Login Url
 $loginURL = $gClient->createAuthUrl();
-
-
-
-
+	
 //User login Data
 //Object of UserDetails from userdetails.php File
 $userClass = new UserDetails();
@@ -115,8 +69,7 @@ if (isset($_POST['login']))
 		$uid = $userClass->userLogin($email,$password);
 
 		If($uid){
-			//$_SESSION['user_id'] = $uid;
-
+			$_SESSION['user_id'] = $uid;
 			header("Location: hello.php");
 			exit();
 		}else{
@@ -124,11 +77,8 @@ if (isset($_POST['login']))
 		}
 	}else{
 		$login_error_message ="Please enter correct email/password";
-	}
-	
+	}	
 }
-
-
 ?>
 
 <!DOCTYPE html>
