@@ -1,14 +1,14 @@
 <?
 session_start();
-include("vendor/autoload.php");
+include("./../../vendor/autoload.php");
 use Facebook;
 
-$FB = new \Facebook\Facebook(['app_id' => '378095093050017','app_secret'=> '229db002854cca6d04d0ea8e9aff9bfb','default_graph_version' => 'v3.3']);
+$FB = new \Facebook\Facebook(['app_id' => '378095093012345','app_secret'=> '229db002854cca6d04d0ea8e9af12345','default_graph_version' => 'v3.3']);
 
 
 $helper = $FB->getRedirectLoginHelper();
 
-$redirectURL = "http://localhost/UI_project/test_fb.php";
+$redirectURL = "http://localhost/PROJECT_NAME/test_fb.php";
 $permissions = ['email'];
 $login_Url = $helper->getLoginUrl($redirectURL, $permissions);
 
@@ -25,10 +25,7 @@ $login_Url = $helper->getLoginUrl($redirectURL, $permissions);
 		
 		<div class= "row justify-content-center">
 			<div class="col-md-6 col-offset-3" align="center">
-				
-
 						<input type="button" Value="Log In with Facebook" onclick=" window.location = '<?php echo $login_Url ;?>'" class="btn btn-primary "/>
-
 				</div>
 			</div>
 		</div>
