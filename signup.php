@@ -1,11 +1,12 @@
 <?php
-require_once "userdetails.php";
+require_once "./userdetails.php";
 
-$userClass = new UserDetails();
+
 $error = '';
 
 if (isset($_POST['signup'])) 
 {
+	$userClass = new UserDetails();
 	$name     = $_POST['name'];
 	$username = $_POST['username'];
 	$email    = $_POST['email'];
@@ -21,9 +22,8 @@ if($username_check && $email_check && $password_check && strlen(trim($name))>0){
 $uid = $userClass->userRegistration($name,$username,$email,$password);
  
 if($uid){
-		//$_session['user_id'] = $uid;
-          
-          header("Location: index.php");
+          $_session['user_id'] = $uid;
+          header("Location: ./index.php");
           exit();
 	}
 
